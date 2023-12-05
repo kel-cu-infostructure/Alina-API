@@ -1,0 +1,52 @@
+[
+  {
+    "id": 0,
+    "name": "Mojang API",
+    "type": 0,
+    "apiRoot": "https://api.mojang.com/users/profiles/minecraft/%PLAYER%",
+    "sessionRoot": "https://sessionserver.mojang.com/session/minecraft/profile/%UUID%",
+    "icon": "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-creeper-face.jpg"
+  },
+  {
+    "id": 1,
+    "name": "ElyBy API",
+    "type": 1,
+    "root": "http://skinsystem.ely.by/textures/%PLAYER%",
+    "icon": "https://ely.by/favicon.ico"
+  },
+  {
+    "id": 2,
+    "name": "SkinMe API",
+    "type": 2,
+    "root": "http://www.skinme.cc/uniskin/%PLAYER%.json",
+    "icon": ""
+  },
+  {
+    "id": 3,
+    "name": "LittleSkin",
+    "type": 2,
+    "root": "https://littlesk.in/csl/%PLAYER%.json",
+    "icon": ""
+  },
+  {
+    "id": 4,
+    "name": "BlessingSkin",
+    "type": 2,
+    "root": "http://skin.prinzeugen.net/%PLAYER%.json",
+    "icon": ""
+  },
+  {
+    "id": 5,
+    "name": "GlitchlessGames",
+    "type": 3,
+    "root": "https://games.glitchless.ru/api/minecraft/users/profiles/textures/?nickname=%PLAYER%",
+    "icon": "https://games.glitchless.ru/favicon.ico"
+  },
+  {
+    "id": 6,
+    "name": "RevolutionWorlds API",
+    "type": 4,
+    "root": "https://api.reworlds.net/player/%PLAYER%",
+    "icon": ""
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "URL": "http://localhost:8002",
+  "CACHE_TIME": 3600,
+  "PORT": 8002
+}

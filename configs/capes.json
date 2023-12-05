@@ -1,0 +1,36 @@
+{
+    "mojangAPI": "https://api.mojang.com/users/profiles/minecraft/",
+    "api": [
+        {
+            "id": 0,
+            "name": "Minecraft",
+            "type": 1,
+            "urls": {
+                "getInfo": "https://sessionserver.mojang.com/session/minecraft/profile/"
+            }
+        },
+        {
+            "id": 1,
+            "name": "MinecraftCapes",
+            "type": 2,
+            "urls": {
+            }
+        },
+        {
+            "id": 2,
+            "name": "Optifine",
+            "type": 3,
+            "urls": {
+                "main": "http://s.optifine.net/capes/"
+            }
+        },
+        {
+            "id": 3,
+            "name": "Cloaks+",
+            "type": 3,
+            "urls": {
+                "main": "https://server.cloaksplus.com/capes/"
+            }
+        }
+    ]
+}
