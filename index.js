@@ -1,5 +1,6 @@
 const exp = require("express");
 const web = exp();
+var fs = require('fs')
 var config
 try {
   config = require('./config.json')
@@ -7,7 +8,14 @@ try {
   config = process.env
 }
 const port = config.PORT | 8002
-
+checkAndCreate();
+function checkAndCreate(){
+  if(!fs.existsSync("./cache")) fs.mkdirSync("./cache");
+  if(!fs.existsSync("./cache/capes")) fs.mkdirSync("./cache/capes");
+  if(!fs.existsSync("./cache/capesRender")) fs.mkdirSync("./cache/capesRender");
+  if(!fs.existsSync("./cache/renders")) fs.mkdirSync("./cache/renders");
+  if(!fs.existsSync("./cache/skins")) fs.mkdirSync("./cache/skins");
+}
 web.use(async function timeLog(req, res, next) {
   req.port = port == 80 ? `` : `:${port}`;
   var ip = req.ip;
