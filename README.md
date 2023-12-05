@@ -28,8 +28,8 @@ API для рендера скинов/плащей из разных серви
 Все виды рендеров
 -
 
-<img src="https://kelcuprum.ru/ass/budge/alina-api/full-size.svg" width="230px" align="left">
-<img src="https://kelcuprum.ru/ass/budge/alina-api/head.svg" width="230px" align="left">
-<img src="https://kelcuprum.ru/ass/budge/alina-api/avatar.svg" width="230px" align="left">
+<img src="https://kelcuprum.ru/ass/budge/alina-api/full-size.svg" width="230px" align="left"><br>
+<img src="https://kelcuprum.ru/ass/budge/alina-api/head.svg" width="230px" align="left"><br>
+<img src="https://kelcuprum.ru/ass/budge/alina-api/avatar.svg" width="230px" align="left"><br>
 <img src="https://kelcuprum.ru/ass/budge/alina-api/cape.svg" width="230px" align="left"><br>
 <br>
