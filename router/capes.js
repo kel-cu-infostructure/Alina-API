@@ -1,7 +1,8 @@
 const { default: axios } = require('axios');
+var atob = require("atob")
 var express = require('express');
 var router = express.Router();
-var fs = require('fs')
+var fs = require('fs');
 var port = require(`../config.json`).PORT
 var apiurl = require(`../config.json`).URL
 __dirname = __dirname.replace(/\\/gi, '/').replace('/router', '');
@@ -55,6 +56,7 @@ router.all(`/render`, async (req, res) => {
             }
         })
         console.log(error)
+        return;
     }
     //
     var data = {};
