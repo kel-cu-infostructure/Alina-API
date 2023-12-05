@@ -24,3 +24,12 @@ API для рендера скинов/плащей из разных серви
 [1] Mojang API | Minecraft
 [2] MinecraftCapes | MinecraftCapes
 [3] Optifine | Optifine, Cloaks+
+
+Все виды рендеров
+-
+
+<img src="https://kelcuprum.ru/ass/budge/alina-api/full-size.svg" width="230px" align="left">
+<img src="https://kelcuprum.ru/ass/budge/alina-api/head.svg" width="230px" align="left">
+<img src="https://kelcuprum.ru/ass/budge/alina-api/avatar.svg" width="230px" align="left">
+<img src="https://kelcuprum.ru/ass/budge/alina-api/cape.svg" width="230px" align="left"><br>
+<br>
