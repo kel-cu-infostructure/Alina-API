@@ -6,7 +6,6 @@ var fs = require('fs');
 var port = require(`../config.json`).PORT
 var apiurl = require(`../config.json`).URL
 __dirname = __dirname.replace(/\\/gi, '/').replace('/router', '');
-var capesLoaderApi = require("../configs/capes.json");
 var canvas = require("canvas");
 
 router.all(`/render`, async (req, res) => {
