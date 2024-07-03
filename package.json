@@ -10,9 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "atob": "^2.1.2",
-    "axios": "^1.6.2",
+    "axios": "^1.7.2",
     "canvas": "^2.11.2",
-    "express": "^4.17.3",
-    "systeminformation": "^5.11.8"
+    "express": "^4.19.2"
   }
 }

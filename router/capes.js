@@ -60,68 +60,36 @@ router.all(`/render`, async (req, res) => {
     }
     //
     var data = {};
-    if (req.query.api) {
-        try {
-            var url = await axios({ url: `http://localhost:${port}/cape/data?name=${name}&uuid=${uuid}&api=${req.query.api}` });
-            var info = url.data;
-            if (info.error) {
-                res.json(info);
-                return
-            }
-            data = info;
-            render(data, res)
-        } catch (error) {
-            res.status(500);
-            res.json({
-                error: {
-                    code: 500,
-                    codename: "Internal Server Error",
-                    message: error.message
-                }
-            })
-            console.log(error)
+    try {
+        var url = await axios({ url: `http://localhost:${port}/playerdata?name=${name}` });
+        var info = url.data;
+        if (info.error) {
+            res.json(info);
+            return
         }
-    } else {
-        get(0)
-        async function get(id) {
-            try {
-                var info = await axios({ url: `http://localhost:${port}/cape/data?name=${name}&uuid=${uuid}&api=${id}` })
-                var json = info.data;
-                data = json;
-                render(data, res)
-            } catch (error) {
-                var json = error.response.data;
-                if (json.error) {
-                    if (json.error.code == 400) {
-                        res.status(404);
-                        res.json({
-                            error: {
-                                code: 404,
-                                codename: "Not found",
-                                message: "Player not found!"
-                            }
-                        })
-                        return;
-                    } else {
-                        return get(id + 1)
-                    }
-                }
-                if (json.error.code == 404) {
-                    return get(id + 1)
-                }
+        data = info;
+        render(data, res)
+    } catch (error) {
+        res.status(500);
+        res.json({
+            error: {
+                code: 500,
+                codename: "Internal Server Error",
+                message: error.message
             }
-        }
+        })
+        console.log(error)
     }
     async function render(data, res) {
         try {
-            const cape = `cache/capes/${data.nickname}-${data.api.id}.png`
+            const cape = `cache/capes/${data.nickname}.png`
             const image = await axios({ url: data.cape, responseType: `arraybuffer` })
             fs.writeFileSync(cape, image.data)
             data.file = {
                 local: `${__dirname}/${cape}`,
-                web: `${apiurl}/capes/${data.nickname}-${data.api.id}.png`
+                web: `${apiurl}/capes/${data.nickname}.png`
             }
-            var fileCapeRender = `cache/capesRender/${data.nickname}-${data.api.id}.png`;
+            var fileCapeRender = `cache/capesRender/${data.nickname}.png`;
             var img = canvas.createCanvas();
             var context = img.getContext("2d");
             // 10 = Ширина
@@ -189,150 +157,6 @@ router.all(`/render`, async (req, res) => {
             return;
         }
     }
-})
-router.all("/data", async (req, res) => {
-    if (!req.query.name && !req.query.uuid && !req.query.api) {
-        res.status(400);
-        res.json({
-            error: {
-                code: 400,
-                codename: "Bad Request",
-                message: "There are no parameters!"
-            }
-        })
-        return;
-    }
-    if (!capesLoaderApi.api[req.query.api]) {
-        res.status(400);
-        res.json({
-            error: {
-                code: 400,
-                codename: "Bad Request",
-                message: "API not found!"
-            }
-        })
-        return;
-    }
-    var name = req.query.name;
-    var uuid = req.query.uuid;
-    var API = capesLoaderApi.api[req.query.api];
-    var data = {
-        nickname: name,
-        cape: '',
-        api: API
-    };
-    if (API.type == 1) {
-        // Mojang
-        try {
-            const url = await axios({ url: API.urls.getInfo + uuid });
-            const json = url.data;
-            var jsonData = JSON.parse(atob(json.properties[0].value))
-            if (!jsonData.textures.CAPE) {
-                res.status(404);
-                res.json({
-                    error: {
-                        code: 404,
-                        codename: "Not found",
-                        message: "Cape not found!"
-                    }
-                })
-                return;
-            }
-            data.cape = jsonData.textures.CAPE.url;
-        } catch (error) {
-            res.status(500);
-            res.json({
-                error: {
-                    code: 500,
-                    codename: "Internal Server Error",
-                    message: error.message
-                }
-            })
-            console.log(error)
-            return;
-        }
-    } else if (API.type == 2) {
-        try {
-            // MinecraftCapes
-            const info = await axios({ url: `https://minecraftcapes.net/profile/${uuid}` })
-            if (info.status == 404) {
-                res.status(404);
-                res.json({
-                    error: {
-                        code: 404,
-                        codename: "Not found",
-                        message: "Cape not found!"
-                    }
-                })
-                return;
-            }
-            const infoJSON = info.data;
-            if (!infoJSON.textures.cape) {
-                res.status(404);
-                res.json({
-                    error: {
-                        code: 404,
-                        codename: "Not found",
-                        message: "Cape not found!"
-                    }
-                })
-                return;
-            }
-            data.cape = `https://minecraftcapes.net/profile/${uuid}/cape`;
-        } catch (error) {
-            res.status(500);
-            res.json({
-                error: {
-                    code: 500,
-                    codename: "Internal Server Error",
-                    message: error.message
-                }
-            })
-            console.log(error)
-            return;
-        }
-    } else if (API.type == 3) {
-        // OptiFine
-        try {
-            const info = await axios({ url: `${API.urls.main}${name}.png` })
-            if (info.status == 404 || info.data == `<html>\r\n<body>\r\nNot found\r\n</body>\r\n</html>`) {
-                res.status(404);
-                res.json({
-                    error: {
-                        code: 404,
-                        codename: "Not found",
-                        message: "Cape not found!"
-                    }
-                })
-                return;
-            }
-            data.cape = `http://s.optifine.net/capes/${name}.png`;
-        } catch (err) {
-            if (!err.response) {
-                res.status(500);
-                res.json({
-                    error: {
-                        code: 500,
-                        codename: "Internal Server Error",
-                        message: error.message
-                    }
-                })
-                console.log(error)
-                return;
-            } if (err.response.status == 404) {
-                res.status(404);
-                res.json({
-                    error: {
-                        code: 404,
-                        codename: "Not found",
-                        message: "Cape not found!"
-                    }
-                })
-                return;
-            }
-        }
-    }
-    res.json(data)
 })
 
 module.exports = router;
